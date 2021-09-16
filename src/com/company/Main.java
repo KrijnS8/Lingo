@@ -40,18 +40,18 @@ public class Main {
         } while(!exit);
     }
 
-    static void mainGameLoop(char[] arr){
+    static void mainGameLoop(char[] word){
         // Creates color array and defines colors
-        String[] colors = new String[arr.length];
+        String[] colors = new String[word.length];
         colors[0] = ANSI_RED;
         for (int i = 1; i < colors.length; i++) {
             colors[i] = ANSI_RESET;
         }
 
         // Creates display array and defines chars
-        char[] displayArr = new char[arr.length];
-        displayArr[0] = arr[0];
-        for(int i = 1; i < arr.length; i++) {
+        char[] displayArr = new char[word.length];
+        displayArr[0] = word[0];
+        for(int i = 1; i < word.length; i++) {
             displayArr[i] = '_';
         }
 
@@ -63,6 +63,8 @@ public class Main {
             if (input.equals("exit")) {
                 exit = true;
             }
+            displayArr = stringToCharArr(input);
+
         } while(!exit);
     }
 
@@ -73,6 +75,14 @@ public class Main {
             output.append(colors[i]).append(chars[i]);
         }
         return output.toString();
+    }
+
+    static char[] stringToCharArr(String s) {
+        char[] arr = new char[s.length()];
+        for(int i = 0; i < s.length(); i++) {
+            arr[i] = s.charAt(i);
+        }
+        return arr;
     }
 
     static char[] getRandomLineFile(String s) throws FileNotFoundException {
@@ -97,12 +107,8 @@ public class Main {
             fileScanner.nextLine();
         }
 
-        // Puts line in array and returns array
+        // Puts string in array and returns array
         String input = fileScanner.nextLine();
-        char[] arr = new char[input.length()];
-        for(int i = 0; i < input.length(); i++) {
-            arr[i] = input.charAt(i);
-        }
-        return arr;
+        return stringToCharArr(input);
     }
 }
