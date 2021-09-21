@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class Main extends ColorPalette{
+public class Main extends ColorPalette {
 
     public static Scanner scanner = new Scanner(System.in);
 
