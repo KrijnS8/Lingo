@@ -2,7 +2,7 @@ package com.company;
 
 import java.io.FileNotFoundException;
 
-public class Expression {
+public class Expression extends ColorPalette {
 
     private static String value;
     private static final String languageFile = "English.txt";
@@ -12,3 +12,4 @@ public class Expression {
 
     }
 }
+
