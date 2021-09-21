@@ -23,8 +23,9 @@ public class Main {
         mainMenu();
     }
 
-    static void mainMenu() throws FileNotFoundException{
+    static void mainMenu() throws FileNotFoundException {
         // Main menu loop
+        FileReader fileReader = new FileReader("English.txt");
         boolean exit = false;
         do {
             System.out.println("Welcome to Lingo!");
@@ -32,7 +33,7 @@ public class Main {
             String input = scanner.nextLine();
 
             if (input.equals("start")) {
-                mainGameLoop(getRandomLineFile("English.txt"));
+                mainGameLoop(fileReader.getRandomLine());
                 exit = true;
             } else if (input.equals("exit")) {
                 exit = true;
@@ -40,7 +41,7 @@ public class Main {
         } while(!exit);
     }
 
-    static void mainGameLoop(char[] word){
+    static void mainGameLoop(char[] word) {
         // Creates color array and defines colors
         String[] colors = new String[word.length];
         colors[0] = ANSI_RED;
@@ -78,37 +79,11 @@ public class Main {
     }
 
     static char[] stringToCharArr(String s) {
+        // Turns string to char array
         char[] arr = new char[s.length()];
         for(int i = 0; i < s.length(); i++) {
-            arr[i] = s.charAt(i);
+            arr[i] = Character.toUpperCase(s.charAt(i));
         }
         return arr;
-    }
-
-    static char[] getRandomLineFile(String s) throws FileNotFoundException {
-        // Imports file and checks if it exists
-        File file = new File(s);
-        if (!file.exists()) {
-            throw new FileNotFoundException();
-        }
-
-        // Scans the length of the file
-        Scanner fileScanner = new Scanner(file);
-        int fileLength = 0;
-        while (fileScanner.hasNextLine()) {
-            fileLength++;
-            fileScanner.nextLine();
-        }
-
-        // Goes to random line in file
-        fileScanner = new Scanner(file);
-        int location = ThreadLocalRandom.current().nextInt(0, fileLength);
-        for (int i = 0; i < location; i++) {
-            fileScanner.nextLine();
-        }
-
-        // Puts string in array and returns array
-        String input = fileScanner.nextLine();
-        return stringToCharArr(input);
     }
 }
