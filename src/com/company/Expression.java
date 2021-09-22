@@ -1,23 +1,18 @@
 package com.company;
 
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 
 public class Expression extends ColorPalette {
 
     private static String value;
     private static String displayValue = "";
-    private static final String languageFile = "English.txt";
+    private static final String LANGUAGE_FILE = "English.txt";
     private static String[] colors;
 
     public Expression() throws FileNotFoundException {
-        FileReader fileReader = new FileReader(languageFile);
+        FileReader fileReader = new FileReader(LANGUAGE_FILE);
         value = fileReader.getRandomLine();
-
-        displayValue += value.charAt(0);
-        for (int i = 1; i < value.length(); i++) {
-            displayValue += "_";
-        }
+        displayValue = value.charAt(0) + new String(new char[value.length() - 1]).replace("\0", "_");
 
         colors = new String[value.length()];
         colors[0] = ANSI_RED;
@@ -37,11 +32,13 @@ public class Expression extends ColorPalette {
     }
 
     public void update(String input) {
+        // Checks if input is correct length
         if (input.length() != value.length()) {
-            System.out.println(ANSI_RESET + "Input value has invalid length");
+            System.out.printf("%sInput value has invalid length", ANSI_RESET);
             return;
         }
 
+        // Updates colors
         input = input.toUpperCase();
         for (int i = 0; i < input.length(); i++) {
             if (value.indexOf(input.charAt(i)) < 0) {

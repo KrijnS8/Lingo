@@ -1,13 +1,11 @@
 package com.company;
-import java.util.Arrays;
+
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
-import java.io.File;
 import java.io.FileNotFoundException;
 
 public class Main extends ColorPalette {
 
-    public static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws FileNotFoundException {
         mainMenu();
@@ -18,12 +16,11 @@ public class Main extends ColorPalette {
         boolean exit = false;
         do {
             System.out.println("Welcome to Lingo!");
-            System.out.println(ANSI_GREEN + "start" + ANSI_RESET + "/" + ANSI_RED + "exit" + ANSI_RESET);
+            System.out.printf("%sstart%s/%sexit\n", ANSI_GREEN, ANSI_RESET, ANSI_RED);
             String input = scanner.nextLine();
 
             if (input.equals("start")) {
                 mainGameLoop();
-                exit = true;
             } else if (input.equals("exit")) {
                 exit = true;
             }
@@ -31,9 +28,8 @@ public class Main extends ColorPalette {
     }
 
     static void mainGameLoop() throws FileNotFoundException {
-        Expression expression = new Expression();
-        System.out.println(expression.getValue());
         // Main game loop
+        Expression expression = new Expression();
         boolean exit = false;
         do {
             System.out.println(expression.evaluate());
