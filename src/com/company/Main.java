@@ -15,7 +15,6 @@ public class Main extends ColorPalette {
 
     static void mainMenu() throws FileNotFoundException {
         // Main menu loop
-        FileReader fileReader = new FileReader("English.txt");
         boolean exit = false;
         do {
             System.out.println("Welcome to Lingo!");
@@ -23,7 +22,7 @@ public class Main extends ColorPalette {
             String input = scanner.nextLine();
 
             if (input.equals("start")) {
-                mainGameLoop(fileReader.getRandomLine());
+                mainGameLoop();
                 exit = true;
             } else if (input.equals("exit")) {
                 exit = true;
@@ -31,49 +30,19 @@ public class Main extends ColorPalette {
         } while(!exit);
     }
 
-    static void mainGameLoop(char[] word) {
-        // Creates color array and defines colors
-        String[] colors = new String[word.length];
-        colors[0] = ANSI_RED;
-        for (int i = 1; i < colors.length; i++) {
-            colors[i] = ANSI_RESET;
-        }
-
-        // Creates display array and defines chars
-        char[] displayArr = new char[word.length];
-        displayArr[0] = word[0];
-        for(int i = 1; i < word.length; i++) {
-            displayArr[i] = '_';
-        }
-
+    static void mainGameLoop() throws FileNotFoundException {
+        Expression expression = new Expression();
+        System.out.println(expression.getValue());
         // Main game loop
         boolean exit = false;
         do {
-            System.out.println(evaluate(displayArr, colors));
+            System.out.println(expression.evaluate());
             String input = scanner.nextLine();
             if (input.equals("exit")) {
                 exit = true;
+            } else {
+                expression.update(input);
             }
-            displayArr = stringToCharArr(input);
-
         } while(!exit);
-    }
-
-    static String evaluate(char[] chars, String[] colors) {
-        // Combine chars and colors to one string
-        StringBuilder output = new StringBuilder();
-        for (int i = 0; i < chars.length; i++) {
-            output.append(colors[i]).append(chars[i]);
-        }
-        return output.toString();
-    }
-
-    static char[] stringToCharArr(String s) {
-        // Turns string to char array
-        char[] arr = new char[s.length()];
-        for(int i = 0; i < s.length(); i++) {
-            arr[i] = Character.toUpperCase(s.charAt(i));
-        }
-        return arr;
     }
 }

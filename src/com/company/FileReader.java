@@ -19,17 +19,14 @@ public class FileReader {
         fileLength = getFileLength();
     }
 
-    public char[] getRandomLine() throws FileNotFoundException {
-        // Goes to random line in file
+    public String getRandomLine() throws FileNotFoundException {
+        // Goes to random line in file and returns it
         Scanner fileScanner = new Scanner(file);
         int location = ThreadLocalRandom.current().nextInt(0, fileLength);
         for (int i = 0; i < location; i++) {
             fileScanner.nextLine();
         }
-
-        // Puts string in array and returns array
-        String input = fileScanner.nextLine();
-        return Main.stringToCharArr(input);
+        return fileScanner.nextLine();
     }
 
     private int getFileLength() throws FileNotFoundException {
